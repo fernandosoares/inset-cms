@@ -1,0 +1,25 @@
+{
+  "name": "inset-cms",
+  "description": "Inset's Content Management System for institutional and news information.",
+  "main": "src/index.js",
+  "authors": [
+    "Fernando Soares <fernandosoares.dev@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/fernandosoares/inset-cms",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "3.3.1",
+    "popper.js": "1.14.4",
+    "bootstrap": "4.1.3",
+    "font-awesome": "4.7.0"
+  }
+}
