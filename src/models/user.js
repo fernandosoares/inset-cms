@@ -1,6 +1,8 @@
 const database = require('../config/database')
 const DataType = database.Sequelize
 
+const bcrypt = require('bcryptjs')
+
 const User = database.define('user', {
     id: {
         type: DataType.INTEGER(11),
@@ -16,7 +18,7 @@ const User = database.define('user', {
         allowNull: false,
         unique: {
             args: true,
-            msg: 'E-mail address already taken. Please choose another one.',
+            msg: 'E-mail is address already taken. Please choose another one.',
             fields: [database.fn('lower', database.col('email'))]
         },
         validate: {
@@ -34,7 +36,6 @@ const User = database.define('user', {
 })
 if (process.env.NODE_ENV === 'development') {
 
-    const bcrypt = require('bcryptjs')
     bcrypt.genSalt(10, function (err, salt) {
         bcrypt.hash('admin', salt, function (err, hash) {
             database.sync().then(function () {
@@ -47,7 +48,7 @@ if (process.env.NODE_ENV === 'development') {
                         console.log(`ADMIN USER CRATED.`)
                     }
                 }).catch(function (error) {
-                    if(error) {
+                    if (error) {
                         console.log(error.errors[0].message)
                     }
                 })
@@ -55,6 +56,33 @@ if (process.env.NODE_ENV === 'development') {
         })
     })
 
+}
+
+User.add = function (userData) {
+    if (userData) {
+        User.create(userData).then(function (data) {
+            return data
+        }).catch(function (error) {
+            return error
+        })
+    }
+}
+
+User.hashPassword = async function (password) {
+    
+    bcrypt.genSalt(10, function (err, salt) {
+        if (err) {
+            return err
+        } else {
+            bcrypt.hash(password, salt, function (err, hash) {
+                if (!err) {
+                    return hash
+                } else {
+                    throw err
+                }
+            })
+        }
+    })
 }
 
 module.exports = User
