@@ -1,0 +1,13 @@
+{
+  "name": "inset-cms",
+  "version": "1.1.0",
+  "description": "Inset's Content Management System for institutional and news information.",
+  "main": "src/app.js",
+  "scripts": {
+    "start-dev": "nodemon",
+    "start-prod": "pm2 start src/app.js"
+  },
+  "keywords": [],
+  "author": "Fernando Soares <fernandosoares.dev@gmail.com>",
+  "license": "ISC"
+}
